@@ -39,6 +39,17 @@ flowchart LR
 - 所有机器人内部细节由网关屏蔽
 - 字段与语义以 `inspection-api/proto/inspection_gateway.proto` 为准（UI 文档不再复制字段，避免漂移）
 
+### 2.1 连接约定（建议）
+
+HMI 需要提供一个“连接设置”：
+- `gateway_host` / `gateway_port`（gRPC）
+- `connect_timeout` / `rpc_timeout`
+- 断线重连策略（指数退避）
+
+运行方式：
+- Windows 端只需要网络能访问 gateway，不需要安装 ROS2
+- gateway 运行在机器人端（AGX/工控机），与 ROS2 在同一运行环境中
+
 ## 3. 运行模式
 
 - `Engineer`（工程模式，PC）:

@@ -178,6 +178,7 @@ flowchart TB
 ### 5.1 点位标注到规划
 
 1. 导入 CAD
+2. 连接网关（在线/离线指示；断线自动重连）
 2. 进入点位标注模式，在 CAD 表面点选检测点位（自动带出法线；默认 `view_direction = -normal`）
 3. 设置拍摄配置：固定对焦距离 `focus_distance_m`（整条任务统一一个值）与角度约束（如最大倾角）
 4. 如有需要，逐点调整拍摄角度（`view_direction` + `roll`）
@@ -206,6 +207,12 @@ flowchart TB
 - `机器人信息卡/导航视图` -> `GetNavMap`（底图）+ `SubscribeSystemState`（`TaskStatus.agv/TaskStatus.arm`）+ `GetPlan/PlanInspection`（规划路径）
 - `抓拍图访问` -> `SubscribeInspectionEvents`（拿到 `media_id/thumbnail`）+ `DownloadMedia`（拉取原图）或 `url` 直连下载
 - `结果页列表` -> `ListCaptures`（按任务/点位拉取抓拍与缺陷结果）
+
+## 10. 网关桥接约束（HMI 侧必须遵守）
+
+- HMI 不直接连接 ROS2（不依赖 DDS/Domain ID/ROS2 安装）
+- 所有控制/状态/事件/媒体访问统一走 `inspection_gateway`
+- 状态与事件流掉线后必须重订阅，且建议用 `include_snapshot=true` 先拿一次快照再追实时
 
 ## 7. 关键状态机（UI）
 
