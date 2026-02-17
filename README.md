@@ -9,8 +9,8 @@
 
 目标：
 - 导入 CAD 模型
-- 在 CAD 表面点选检测点位（带法线），并设置相机拍摄角度（默认沿法线方向）
-- 配置拍摄参数：固定对焦距离（工作距离，整条任务一个值）+ 角度约束（如最大倾角）
+- 在 CAD 表面点选检测点位（带法线），拍摄方向自动取 `-normal`
+- 拍摄参数与规划参数使用系统默认值，不暴露给用户
 - 调用网关服务触发路径规划与任务执行
 - 实时展示导航与机械臂位姿（复合机械臂）状态：AGV 位姿/阶段、机械臂关节与末端位姿（可视化）、联锁条件与告警
 - 执行过程中展示取图与检测结果：按点位查看抓拍图、缺陷框/置信度、历史记录与导出
@@ -67,13 +67,11 @@ HMI 需要提供一个“连接设置”：
 - `CadSceneModule`:
   - 3D 模型加载、显示、拾取
 - `TargetPointModule`:
-  - CAD 表面点位标注（点 + 法线），并设置拍摄角度（默认 `-normal`）
-- `CaptureConfigModule`:
-  - 设置固定对焦距离（工作距离）与角度约束（最大倾角等）
+  - CAD 表面点位标注（点 + 法线），拍摄方向默认 `-normal`，参数自动填充
 - `PlanningClientModule`:
-  - 调用 `PlanInspection` 并展示路径
+  - 调用 `SetInspectionTargets` + `PlanInspection` 并展示路径
 - `ExecutionPanelModule`:
-  - 任务控制与状态流展示
+  - 任务控制（启动/暂停/继续/停止）与状态流展示
 - `NavMonitorModule`:
   - 导航监控：当前位置/目标点/路径折线/到位与停止状态（以网关状态为准；路径折线来源 `InspectionPath.waypoints[].agv_pose`）
 - `RobotStateModule`:
