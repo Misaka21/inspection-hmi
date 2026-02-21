@@ -1,6 +1,12 @@
-# inspection-hmi
+# inspection-hmi (已归档)
 
-大型工件视觉检测系统上位机（Qt 实现）。  
+> **本仓库已归档。** Qt6 C++ 上位机已被 React Web 前端替代。新前端源码位于 `inspection-site/`，构建产物部署到 `inspection_gateway/frontend/dist/`，由 FastAPI 托管静态文件。任意设备通过浏览器即可访问。
+>
+> 新架构详见 `inspection_gateway/CLAUDE.md` 和 `inspection-site/`。
+
+---
+
+大型工件视觉检测系统上位机（Qt 实现，已由 Web 前端替代）。
 目标是发布一个可执行文件给 Windows 用户使用，不要求安装 ROS 环境。
 
 当前仓库先以“接口与交互效果”为导向完善文档；`src/` 代码骨架尚未落地实现（后续按本文模块拆分建立）。
